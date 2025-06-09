@@ -1,4 +1,5 @@
 'use client';
+
 import { useState, useEffect } from 'react';
 
 export default function Home() {
@@ -7,7 +8,6 @@ export default function Home() {
     firstName: '',
     lastName: '',
     email: '',
-    phone: 0 as number | null,
     username: '',
     password: '',
     confirmPassword: '',
@@ -39,9 +39,7 @@ export default function Home() {
            /\d/.test(password) &&
            /[!@#$%^&*]/.test(password);
   };
-  const validatePhone = (phone: number | null) => {
-    return phone !== null && /^\d{10}$/.test(phone.toString());
-  };
+
   const validateStep = () => {
     const newErrors: any = {};
 
@@ -50,8 +48,6 @@ export default function Home() {
       if (!formData.lastName) newErrors.lastName = 'Required';
       if (!formData.email) newErrors.email = 'Required';
       else if (!validateEmail(formData.email)) newErrors.email = 'Invalid email';
-      if (formData.phone === null) newErrors.phone = 'Required';
-      else if (!validatePhone(formData.phone)) newErrors.phone = 'Invalid phone number';
     }
 
     if (step === 2) {
@@ -84,8 +80,7 @@ export default function Home() {
     submitData.append('firstName', formData.firstName);
     submitData.append('lastName', formData.lastName);
     submitData.append('email', formData.email);
-    submitData.append('phone', formData.phone ? formData.phone.toString() : '');
-    submitData.append('username', formData.username); 
+    submitData.append('username', formData.username);
     submitData.append('password', formData.password);
     submitData.append('terms', formData.terms.toString());
     if (formData.file) {
@@ -100,13 +95,11 @@ export default function Home() {
 
       if (response.ok) {
         alert('Form submitted successfully!');
-        localStorage.removeItem('formData');
         setStep(1);
         setFormData({
           firstName: '',
           lastName: '',
           email: '',
-          phone: 0 as number | null,
           username: '',
           password: '',
           confirmPassword: '',
@@ -178,14 +171,6 @@ export default function Home() {
             />
             {(errors as any).email && <p className="text-red-500 text-sm">{(errors as any).email}</p>}
 
-            <input
-              type="tel"
-              placeholder="Phone"
-              value={formData.phone !== null ? formData.phone.toString() : ''}
-              onChange={(e) => setFormData({...formData, phone: e.target.value ? parseInt(e.target.value) : null})}
-              className="w-full p-2 border rounded"
-            />
-            {(errors as any).phone && <p className="text-red-500 text-sm">{(errors as any).phone}</p>}
           </div>
         )}
 

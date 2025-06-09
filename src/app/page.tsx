@@ -7,7 +7,7 @@ export default function Home() {
     firstName: '',
     lastName: '',
     email: '',
-    phone: null,
+    phone: 0 as number | null,
     username: '',
     password: '',
     confirmPassword: '',
@@ -84,8 +84,8 @@ export default function Home() {
     submitData.append('firstName', formData.firstName);
     submitData.append('lastName', formData.lastName);
     submitData.append('email', formData.email);
-    submitData.append('phone', formData.phone);
-    submitData.append('username', formData.username);
+    submitData.append('phone', formData.phone ? formData.phone.toString() : '');
+    submitData.append('username', formData.username); 
     submitData.append('password', formData.password);
     submitData.append('terms', formData.terms.toString());
     if (formData.file) {
@@ -106,7 +106,7 @@ export default function Home() {
           firstName: '',
           lastName: '',
           email: '',
-          phone: '',
+          phone: 0 as number | null,
           username: '',
           password: '',
           confirmPassword: '',
@@ -181,8 +181,8 @@ export default function Home() {
             <input
               type="tel"
               placeholder="Phone"
-              value={formData.phone}
-              onChange={(e) => setFormData({...formData, phone: e.target.value})}
+              value={formData.phone !== null ? formData.phone.toString() : ''}
+              onChange={(e) => setFormData({...formData, phone: e.target.value ? parseInt(e.target.value) : null})}
               className="w-full p-2 border rounded"
             />
             {(errors as any).phone && <p className="text-red-500 text-sm">{(errors as any).phone}</p>}

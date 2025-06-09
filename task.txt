@@ -1,0 +1,20 @@
+Build a complex form with validation and submission handling. 
+Requirements: 
+● Multi-step form (3 steps minimum) 
+● Real-time validation 
+● Form state persistence between steps 
+● File upload capability 
+● Submission with API integration 
+Validation Rules: 
+● Email format validation 
+● Password strength requirements 
+● File size and type restrictions 
+● Required field validation 
+● Custom validation rules 
+Technical Implementation: 
+● Use React Hook Form or Formik 
+● Implement custom validation functions 
+● Handle form submission errors
+
+
+

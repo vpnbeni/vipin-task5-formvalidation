@@ -1,5 +1,4 @@
 'use client';
-
 import { useState, useEffect } from 'react';
 
 export default function Home() {
@@ -8,7 +7,7 @@ export default function Home() {
     firstName: '',
     lastName: '',
     email: '',
-    phone: '',
+    phone: null,
     username: '',
     password: '',
     confirmPassword: '',
@@ -40,7 +39,9 @@ export default function Home() {
            /\d/.test(password) &&
            /[!@#$%^&*]/.test(password);
   };
-
+  const validatePhone = (phone: number | null) => {
+    return phone !== null && /^\d{10}$/.test(phone.toString());
+  };
   const validateStep = () => {
     const newErrors: any = {};
 
@@ -49,7 +50,8 @@ export default function Home() {
       if (!formData.lastName) newErrors.lastName = 'Required';
       if (!formData.email) newErrors.email = 'Required';
       else if (!validateEmail(formData.email)) newErrors.email = 'Invalid email';
-      if (!formData.phone) newErrors.phone = 'Required';
+      if (formData.phone === null) newErrors.phone = 'Required';
+      else if (!validatePhone(formData.phone)) newErrors.phone = 'Invalid phone number';
     }
 
     if (step === 2) {
